@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 5f;
+    private float speed = 10f;
     private float zBound = 3.5f, xBound = 7;
     private Rigidbody playerRb;
 
@@ -52,6 +52,22 @@ public class PlayerController : MonoBehaviour
         // Right of the screen
         if (transform.position.x > xBound)
         { transform.position = new Vector3(xBound, transform.position.y, transform.position.z); }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Collision with an enemy.");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Powerup")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
 }
